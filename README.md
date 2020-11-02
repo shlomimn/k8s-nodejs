@@ -8,21 +8,72 @@ All .yaml files create the required deployment.
 
 Using *kubectl kustomization . > allInOne.yaml*
 I have concatinated all .yaml files in the correct applying order.
+```
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - secrets.yaml
+  - deployment.yaml
+  - service.yaml
+  - hpa.yaml
+```
+
 Run CMD to apply all files in a single command:
 * kubectl apply -f allInOne.yaml
 
-# Tolerations 
+
+# Entire Solution Overview
+*kubectl config set-context --current --namespace=api-servers*
+*kubectl get all*
+
+* Notes
 - No need to use a real repo.
 - No need to build the docker image 
-  Thus, Docker image “nodejs-api” will not be pulled.
+  Thus, Docker image “nodejs-api” will not be pulled (ErrImagePull)
+
+```
+NAME                                 READY   STATUS             RESTARTS   AGE
+pod/nodejs-deploy-8598bb797b-4m6j4   0/1     ErrImagePull       0          4h1m
+pod/nodejs-deploy-8598bb797b-bxbd6   0/1     ImagePullBackOff   0          4h1m
+
+NAME                    TYPE           CLUSTER-IP     EXTERNAL-IP                                                              PORT(S)        AGE
+service/nodejs-deploy   LoadBalancer   100.68.31.81   a51fe584f628b4a68a3d35fd680c65bc-112392756.us-east-1.elb.amazonaws.com   80:32103/TCP   4h1m
+
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nodejs-deploy   0/2     2            0           4h1m
+
+NAME                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/nodejs-deploy-8598bb797b   2         2         0       4h1m
+
+NAME                                                REFERENCE                  TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <unknown>/80%   2         10        2          4h1m
+```
+
 
 # Requirements & Details
-1. The pod should belong to the “api-servers” namespace.
-   * Relevant file: namespace.yaml
-   * All .yaml files include *namespace: api-server* in metadata.
-   
-2. Reference for secret file:
-“docker-registry-secret” (assume that secret is already exists).
+1. The API should be accessible inside the cluster on port 8000.
+   * deployment.yaml: .spec.template.spec.containers.ports.containerPort=8000
+   * service.yaml: .spec.ports.targetPort=8000
+     (As shown above, AWS provides the ELB loadBalancer)
+
+2. The API should be accessible from outside the cluster on port 80
+   * service.yaml: .spec.ports.port=80
+   * service.yaml: .spec.type=LoadBalancer
+   (Ingress is also an option with relevant configuration)
+
+
+3. Minimum of 2 replicas and max unavailable 2.
+   * deployment.yaml: .spec.replicas=2
+     (Creates a replicaset, best practice is to use in deployment.yaml instead of additional replicaset.yaml) 
+     hpa.yaml: .spec.minReplicas=2
+     
+   * deployment.yaml: .spec.strategy.type: RollingUpdate
+   * deployment.yaml: .spec.strategy.rollingUpdate.maxUnavailable=2
+     (An optional field that specifies the maximum number of Pods that can be unavailable during the update process)
+
+
+4.  Reference for secret file: “docker-registry-secret” (assume that secret is already exists).
    * I have create docker-registry-secret.txt file locally -> includes a single password inside.
    
 ```   
@@ -30,8 +81,7 @@ Run CMD to apply all files in a single command:
 #!@VeryStr0ngSecret1!#
 ```
 
-
-   * I encrepted in base64 and transfered the password in file above into *secret.yaml*
+   * I encrepted the password in base64 and transfered it into *secret.yaml*
    *kubectl create secret generic db-secrets --from-file=./docker-registry-secret -o yaml --namespace=api-servers*
 
 ```
@@ -40,10 +90,10 @@ NAME                   TYPE                                  DATA   AGE
 db-secrets             Opaque                                1      12s
 ```
 
-
    * In deployment.yaml,
      I configured an env section which sets the above password as a env parameter,
-     The following is shown by using an nginx image instead of nodejs-api using the same files
+     The following is shown by using an nginx image instead of nodejs-api using the same files.
+     Bellow you can see that the container gets the env parameter.
      
 ```
 [root@shlomime k8s]# kubectl get pod
@@ -60,6 +110,14 @@ root@my-deploy-848d7d4865-4rmjn:/#
 ```
 
 
+5. The pod should belong to the “api-servers” namespace.
+   * Relevant file: namespace.yaml
+   * All .yaml files include *namespace: api-server* in metadata.
+   
+   
+6. The API will horizontally auto-scale when the CPU reaches 80%.
+   * hpa.yaml: .apiVersion=autoscaling/v2beta2
+     hpa.yaml: .spec.metrics...averageUtilization=80
 
 
 
