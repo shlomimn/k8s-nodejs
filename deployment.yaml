@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodejs-deploy
+  name: nodejs-deploy
+  namespace: api-servers
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodejs-deploy
+  strategy:
+    type: RollingUpdate      
+    rollingUpdate:
+      maxUnavailable: 2
+  template:
+    metadata:
+      labels:
+        app: nodejs-deploy
+    spec:
+      containers:
+      - image: nodejs-api:latest
+        name: nodejs-api
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            cpu: 400m
+          requests:
+            cpu: 200m
+        env:
+        - name: SECRET_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: docker-registry-secret 
+status: {}
+
