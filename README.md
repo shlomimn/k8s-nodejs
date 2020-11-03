@@ -98,7 +98,7 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
 
     * I encrepted the password in base64 and transfered it into *secret.yaml*
    
-    *kubectl create secret generic db-secrets --from-file=./docker-registry-secret -o yaml --namespace=api-servers*
+      *kubectl create secret generic db-secrets --from-file=./docker-registry-secret -o yaml --namespace=api-servers*
 
      ```
      [root@shlomime k8s]# kubectl get secrets 
@@ -108,6 +108,7 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
 
      * In deployment.yaml,
      I configured an env section which sets the above password as a env parameter.
+     
      Bellow you can see that the container gets the env parameter (when replacing the nodejs-api image with nginx image).
      
     ```
