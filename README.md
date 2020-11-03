@@ -7,6 +7,7 @@ Write all necessary Kubernetes files to deploy a simple NodeJS process to the cl
 All .yaml files create the required deployment.
 
 Using *kubectl kustomization . > allInOne.yaml*
+
 I have concatinated all .yaml files in the correct applying order.
 ```
 apiVersion: kustomize.config.k8s.io/v1beta1
@@ -20,7 +21,8 @@ resources:
 ```
 
 Run CMD to apply all files in a single command:
-* kubectl apply -f allInOne.yaml
+
+*kubectl apply -f allInOne.yaml*
 
 
 # Entire Solution Overview
