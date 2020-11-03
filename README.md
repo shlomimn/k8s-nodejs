@@ -90,39 +90,39 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
 4.  Reference for secret file: “docker-registry-secret” (assume that secret is already exists).
     * I have create docker-registry-secret.txt file locally -> includes a single password inside.
    
-```   
-[root@shlomime k8s]# cat docker-registry-secret 
-#!@VeryStr0ngSecret1!#
-```
+    ```   
+    [root@shlomime k8s]# cat docker-registry-secret 
+    #!@VeryStr0ngSecret1!#
+    ```
 
 
-  . * I encrepted the password in base64 and transfered it into *secret.yaml*
+    * I encrepted the password in base64 and transfered it into *secret.yaml*
    
-  .  *kubectl create secret generic db-secrets --from-file=./docker-registry-secret -o yaml --namespace=api-servers*
+    *kubectl create secret generic db-secrets --from-file=./docker-registry-secret -o yaml --namespace=api-servers*
 
-```
-[root@shlomime k8s]# kubectl get secrets 
-NAME                   TYPE                                  DATA   AGE
-db-secrets             Opaque                                1      12s
-```
+     ```
+     [root@shlomime k8s]# kubectl get secrets 
+     NAME                   TYPE                                  DATA   AGE
+     db-secrets             Opaque                                1      12s
+     ```
 
-   . * In deployment.yaml,
+     * In deployment.yaml,
      I configured an env section which sets the above password as a env parameter.
      Bellow you can see that the container gets the env parameter (when replacing the nodejs-api image with nginx image).
      
-```
-[root@shlomime k8s]# kubectl get pod
-NAME                         READY   STATUS    RESTARTS   AGE
-my-deploy-848d7d4865-4rmjn   1/1     Running   0          51s
-my-deploy-848d7d4865-nsn9h   1/1     Running   0          51s
-[root@shlomime k8s]# 
-[root@shlomime k8s]# 
-[root@shlomime k8s]# kubectl exec -it my-deploy-848d7d4865-4rmjn bash
-kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
-root@my-deploy-848d7d4865-4rmjn:/# echo $SECRET_PASSWORD
-#!@VeryStr0ngSecret1!#
-root@my-deploy-848d7d4865-4rmjn:/# 
-```
+    ```
+    [root@shlomime k8s]# kubectl get pod
+    NAME                         READY   STATUS    RESTARTS   AGE
+    my-deploy-848d7d4865-4rmjn   1/1     Running   0          51s
+    my-deploy-848d7d4865-nsn9h   1/1     Running   0          51s
+    [root@shlomime k8s]# 
+    [root@shlomime k8s]# 
+    [root@shlomime k8s]# kubectl exec -it my-deploy-848d7d4865-4rmjn bash
+    kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+    root@my-deploy-848d7d4865-4rmjn:/# echo $SECRET_PASSWORD
+    #!@VeryStr0ngSecret1!#
+    root@my-deploy-848d7d4865-4rmjn:/# 
+    ```
 
 
 5. The pod should belong to the “api-servers” namespace.
