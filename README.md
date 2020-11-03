@@ -110,7 +110,7 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
      NAME                   TYPE                                  DATA   AGE
      db-secrets             Opaque                                1      12s
      ```
-       (Another option was to set the docker-registry-secret.txt file outside the cluster and use volume attachement).
+       - Another option was to set the docker-registry-secret.txt file outside the cluster and use volume attachement.
       
 
      * **deployment.yaml & secret.yaml**
