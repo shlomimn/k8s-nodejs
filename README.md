@@ -32,11 +32,6 @@ Run CMD to apply all files in a single command:
 
 *kubectl get all*
 
-* Notes
-- No need to use a real repo.
-- No need to build the docker image 
-  Thus, Docker image “nodejs-api” will not be pulled (ErrImagePull)
-
 ```
 NAME                                 READY   STATUS             RESTARTS   AGE
 pod/nodejs-deploy-8598bb797b-4m6j4   0/1     ErrImagePull       0          4h1m
@@ -55,8 +50,15 @@ NAME                                                REFERENCE                  T
 horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <unknown>/80%   2         10        2          4h1m
 ```
 
+### Notes
+
+- No need to use a real repo.
+- No need to build the docker image 
+  Thus, Docker image “nodejs-api” will not be pulled (ErrImagePull)
+
 
 # Requirements & Details
+
 1. The API should be accessible inside the cluster on port 8000.
    * deployment.yaml: .spec.template.spec.containers.ports.containerPort=8000
    * service.yaml: .spec.ports.targetPort=8000
