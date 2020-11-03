@@ -91,9 +91,8 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
     * **docker-registry-secret.txt**
     
       I have create docker-registry-secret.txt file locally -> includes a single password inside.
-      
-      (Another option was to set the docker-registry-secret.txt file outside the cluster and use volume attachement).
-   
+    
+         
     ```   
     [root@shlomime k8s]# cat docker-registry-secret 
     #!@VeryStr0ngSecret1!#
@@ -111,6 +110,8 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
      NAME                   TYPE                                  DATA   AGE
      db-secrets             Opaque                                1      12s
      ```
+      (Another option was to set the docker-registry-secret.txt file outside the cluster and use volume attachement).
+      
 
      * **deployment.yaml & secret.yaml**
      
