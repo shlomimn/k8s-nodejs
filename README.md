@@ -90,7 +90,7 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
 4.  Reference for secret file: “docker-registry-secret” (assume that secret is already exists).
     * **docker-registry-secret.txt**
     
-    I have create docker-registry-secret.txt file locally -> includes a single password inside.
+      I have create docker-registry-secret.txt file locally -> includes a single password inside.
    
     ```   
     [root@shlomime k8s]# cat docker-registry-secret 
