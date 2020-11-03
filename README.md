@@ -130,6 +130,8 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
     root@my-deploy-848d7d4865-4rmjn:/# 
     ```
 
+    (Another option is to set the docker-registry-secret.txt file outside the cluster and use volume attachement).
+    
 
 5. The pod should belong to the “api-servers” namespace.
    * Relevant file: namespace.yaml
