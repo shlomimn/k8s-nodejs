@@ -88,7 +88,9 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
 
 
 4.  Reference for secret file: “docker-registry-secret” (assume that secret is already exists).
-    * I have create docker-registry-secret.txt file locally -> includes a single password inside.
+    * **docker-registry-secret.txt**
+    
+    I have create docker-registry-secret.txt file locally -> includes a single password inside.
    
     ```   
     [root@shlomime k8s]# cat docker-registry-secret 
@@ -96,7 +98,9 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
     ```
 
 
-    * I encrepted the password in base64 and transfered it into *secret.yaml*
+    * **secret.yam & db-secrets**
+    
+      I encrepted the password in base64 and transfered it into *secret.yaml*
    
       *kubectl create secret generic db-secrets --from-file=./docker-registry-secret -o yaml --namespace=api-servers*
 
@@ -106,8 +110,9 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
      db-secrets             Opaque                                1      12s
      ```
 
-     * In deployment.yaml,
-     I configured an env section which sets the above password as a env parameter.
+     * **deployment.yaml & secret.yaml**
+     
+       In deployment.yaml,I configured an env section which sets the above password as a env parameter.
      
        Bellow you can see that the container gets the env parameter (when replacing the nodejs-api image with nginx image).
      
