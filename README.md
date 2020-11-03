@@ -1,9 +1,9 @@
 # k8s-nodejs
 
-# Task
+## Task
 Write all necessary Kubernetes files to deploy a simple NodeJS process to the cluster.
 
-# General
+## General
 All .yaml files create the required deployment.
 
 Using *kubectl kustomization . > allInOne.yaml*
