@@ -115,7 +115,7 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
 
      * **deployment.yaml & secret.yaml**
      
-       In deployment.yaml,I configured an env section which sets the above password as a env parameter.
+       In deployment.yaml, I configured an env section which sets the above password as a env parameter.
      
        Bellow you can see that the container gets the env parameter (when replacing the nodejs-api image with nginx image).
      
