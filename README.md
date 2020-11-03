@@ -98,7 +98,7 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
     ```
 
 
-    * **secret.yam & db-secrets**
+    * **secret.yaml & db-secrets**
     
       I encrepted the password in base64 and transfered it into *secret.yaml*
    
