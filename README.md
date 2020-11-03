@@ -96,6 +96,7 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
 ```
 
    * I encrepted the password in base64 and transfered it into *secret.yaml*
+   
    *kubectl create secret generic db-secrets --from-file=./docker-registry-secret -o yaml --namespace=api-servers*
 
 ```
