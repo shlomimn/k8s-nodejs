@@ -6,9 +6,10 @@ Write all necessary Kubernetes files to deploy a simple NodeJS process to the cl
 ## General
 All .yaml files create the required deployment.
 
-I have concatinated all .yaml files in the correct applying order.
-
 *kubectl kustomization . > allInOne.yaml*
+
+
+I have concatinated all .yaml files in the correct applying order using kustomization.yaml
 
 ```
 apiVersion: kustomize.config.k8s.io/v1beta1
