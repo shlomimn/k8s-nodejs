@@ -24,10 +24,12 @@ Run CMD to apply all files in a single command:
 
 
 # Entire Solution Overview
-Switch to *api-servers* namespace
+##Switch to *api-servers* namespace
+
 *kubectl config set-context --current --namespace=api-servers*
 
-Present complete solution
+##Present complete solution
+
 *kubectl get all*
 
 * Notes
