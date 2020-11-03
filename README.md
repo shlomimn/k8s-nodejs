@@ -28,6 +28,7 @@ Run the following commands to apply all .yaml files:
 *kubectl apply -f allInOne.yaml*
 
 
+
 # Entire Solution Overview
 ## Switch to *api-servers* namespace
 
