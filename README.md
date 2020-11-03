@@ -95,9 +95,10 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
 #!@VeryStr0ngSecret1!#
 ```
 
-   * I encrepted the password in base64 and transfered it into *secret.yaml*
+
+  . * I encrepted the password in base64 and transfered it into *secret.yaml*
    
-     *kubectl create secret generic db-secrets --from-file=./docker-registry-secret -o yaml --namespace=api-servers*
+  .  *kubectl create secret generic db-secrets --from-file=./docker-registry-secret -o yaml --namespace=api-servers*
 
 ```
 [root@shlomime k8s]# kubectl get secrets 
@@ -105,10 +106,9 @@ NAME                   TYPE                                  DATA   AGE
 db-secrets             Opaque                                1      12s
 ```
 
-   * In deployment.yaml,
-     I configured an env section which sets the above password as a env parameter,
-     The following is shown by using an nginx image instead of nodejs-api using the same files.
-     Bellow you can see that the container gets the env parameter.
+   . * In deployment.yaml,
+     I configured an env section which sets the above password as a env parameter.
+     Bellow you can see that the container gets the env parameter (when replacing the nodejs-api image with nginx image).
      
 ```
 [root@shlomime k8s]# kubectl get pod
