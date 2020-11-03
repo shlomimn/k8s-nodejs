@@ -6,9 +6,6 @@ Write all necessary Kubernetes files to deploy a simple NodeJS process to the cl
 ## General
 All .yaml files create the required deployment.
 
-*kubectl kustomization . > allInOne.yaml*
-
-
 I have concatinated all .yaml files in the correct applying order using kustomization.yaml
 
 ```
@@ -22,7 +19,11 @@ resources:
   - hpa.yaml
 ```
 
-Run CMD to apply all files in a single command:
+## Execution
+
+Run the following commands to apply all .yaml files:
+
+*kubectl kustomization . > allInOne.yaml*
 
 *kubectl apply -f allInOne.yaml*
 
