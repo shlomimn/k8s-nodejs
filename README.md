@@ -141,7 +141,7 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
    
    
 6. The API will horizontally auto-scale when the CPU reaches 80%.
-   * Pre-request: Verify that metrics-server is installed <br/>
+   * Pre-request: Verify that metrics-server is installed, <br/>
      *kubectl get deployment metrics-server -n kube-system*  
      
    * hpa.yaml: .apiVersion=autoscaling/v2beta2 <br/>
