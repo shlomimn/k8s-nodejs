@@ -78,8 +78,8 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
 
 
 3. Minimum of 2 replicas and max unavailable 2.
-   * deployment.yaml: .spec.replicas=2
-     (Creates a replicaset, best practice is to use in deployment.yaml instead of additional replicaset.yaml) 
+   * When we use the HPA we need to remove the number of replicas of the deployment, pod, replicaset.<br/>
+     Because the number of replicas is set by the HPA Controller. 
      hpa.yaml: .spec.minReplicas=2
      
    * deployment.yaml: .spec.strategy.type: RollingUpdate
