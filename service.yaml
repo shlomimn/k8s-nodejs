@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: nodejs-deploy
-  name: nodejs-deploy
+  name: service-nodejs-deploy
   namespace: api-servers
 spec:
   ports:
