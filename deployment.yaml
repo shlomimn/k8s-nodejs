@@ -6,7 +6,9 @@ metadata:
   name: nodejs-deploy
   namespace: api-servers
 spec:
-  replicas: 2
+#  replicas: 2
+#  When we use the HPA we need to remove the number of replicas of the deployment, pod, replicaset. 
+#  Because the number of replicas is set by the HPA Controller.
   selector:
     matchLabels:
       app: nodejs-deploy
