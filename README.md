@@ -76,7 +76,7 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
    (Ingress is also an option with relevant configuration, but ingress is used to use a single LoadBalancer for many services
     Since here I only have a single service, then I can use type:LoadBalancer)
 
-   ![](images/K8s-LoadBalancer.png =400*300)
+   ![](images/K8s-LoadBalancer.png =150*50)
 
 3. Minimum of 2 replicas and max unavailable 2.
    * When we use the HPA we need to remove the number of replicas of the deployment, pod, replicaset.<br/>
