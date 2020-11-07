@@ -78,7 +78,7 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
    <img src="images/K8s-LoadBalancer.png">
 
    * Ingress is also an option with relevant configuration,   
-     but ingress is used to use a single LoadBalancer for many services.
+     but ingress is when using a single LoadBalancer for many services.
 
    <img src="images/K8s-Ingress.png">
    
