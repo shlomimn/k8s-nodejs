@@ -18,7 +18,7 @@ kind: Service
 metadata:
   labels:
     app: nodejs-deploy
-  name: service-nodejs-deploy
+  name: srvc1
   namespace: api-servers
 spec:
   ports:
@@ -34,7 +34,7 @@ kind: Deployment
 metadata:
   labels:
     app: nodejs-deploy
-  name: deployment-nodejs-deploy
+  name: dplymnt1
   namespace: api-servers
 spec:
   selector:
@@ -70,7 +70,7 @@ status: {}
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hpa-nodejs-deploy
+  name: hpa1
   namespace: api-servers
 spec:
   maxReplicas: 10
