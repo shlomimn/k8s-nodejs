@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: nodejs-deploy
-  name: deployment-nodejs-deploy
+  name: dplymnt1
   namespace: api-servers
 spec:
 #  replicas: 2
