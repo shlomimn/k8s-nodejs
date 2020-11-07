@@ -2,7 +2,7 @@ apiVersion: autoscaling/v2beta2
 #apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hpa-nodejs-deploy
+  name: hpa1
   namespace: api-servers
 spec:
   scaleTargetRef:
