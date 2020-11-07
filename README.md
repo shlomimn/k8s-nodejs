@@ -73,10 +73,15 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
 2. The API should be accessible from outside the cluster on port 80
    * service.yaml: .spec.ports.port=80
    * service.yaml: .spec.type=LoadBalancer
-   (Ingress is also an option with relevant configuration, but ingress is used to use a single LoadBalancer for many services
-    Since here I only have a single service, then I can use type:LoadBalancer)
+   (Since I only have a single service, then I can use type:LoadBalancer)
 
    <img src="images/K8s-LoadBalancer.png">
+
+   * Ingress is also an option with relevant configuration,   
+     but ingress is used to use a single LoadBalancer for many services.
+
+   <img src="images/K8s-Ingress.png">
+   
 
 3. Minimum of 2 replicas and max unavailable 2.
    * When we use the HPA we need to remove the number of replicas of the deployment, pod, replicaset.<br/>
