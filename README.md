@@ -83,7 +83,7 @@ horizontalpodautoscaler.autoscaling/nodejs-deploy   Deployment/nodejs-deploy   <
      Because the number of replicas is set by the HPA Controller. 
      hpa.yaml: .spec.minReplicas=2
      
-   ![](K8s-HPA.png)
+   ![](images/K8s-HPA.png)
      
    * deployment.yaml: .spec.strategy.type: RollingUpdate
    * deployment.yaml: .spec.strategy.rollingUpdate.maxUnavailable=2
